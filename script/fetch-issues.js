@@ -24,7 +24,7 @@ console.log('Fetching issues data for', repo)
   }, token)
   await refresh()
 
-  await page.waitForSelector('.kanban-board', { timeout: 5 * 60 * 1000 })
+  await page.waitForSelector('.kanban-board', { timeout: 15 * 60 * 1000 })
 
   let cache = await page.evaluate(() => {
     const dump = key => {
@@ -62,3 +62,8 @@ console.log('Fetching issues data for', repo)
 
   await browser.close()
 })()
+
+process.on('unhandledRejection', error => {
+  console.log('unhandledRejection', error)
+  process.exit(1)
+})
