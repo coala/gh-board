@@ -1,7 +1,7 @@
 const puppeteer = require('puppeteer')
 const fs = require('fs')
 
-const repo = process.env.REPOSITORIES
+const repo = 'coala:coala'
 const token = process.env.GITHUB_TOKEN
 
 if (!repo) {
@@ -19,9 +19,9 @@ console.log('Fetching issues data for', repo)
     await page.goto(`http://localhost:8080/#/r/${repo}/kanban`)
 
   await refresh()
-  await page.evaluate(token => {
-    localStorage.setItem('gh-token', token)
-  }, token)
+  // await page.evaluate(token => {
+  //   localStorage.setItem('gh-token', token)
+  // }, token)
   await refresh()
 
   await page.waitForSelector('.kanban-board', { timeout: 5 * 60 * 1000 })
