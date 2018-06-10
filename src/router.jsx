@@ -5,7 +5,6 @@ import {Router} from 'react-router';
 import history from './history';
 import App from './components/app';
 import NotFoundShell from './components/not-found';
-import Dashboard from './components/dashboard';
 import RepoKanban from './components/repo-kanban';
 import ByMilestoneView from './components/by-milestone-view';
 import ByUserView from './components/by-user-view';
@@ -31,7 +30,7 @@ const routes = [
   },
   { path: '/',
     component: App,
-    indexRoute: { component: Dashboard },
+    indexRoute: { component: RepoKanban},
     childRoutes: [
       { path: '/diff-envs/:startHost/:endHost', component: DiffEnvs},
       { path: '/p-issue/:repoOwner/:repoName/:number', component: EtherpadIssueShell},

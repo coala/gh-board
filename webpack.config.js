@@ -4,6 +4,7 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const isBuild = process.env['NODE_ENV'] === 'production';
+const REPOSITORIES = process.env['REPOSITORIES'];
 
 module.exports = {
   entry: [
@@ -71,7 +72,8 @@ module.exports = {
   },
   plugins: isBuild ? [
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('production')
+      'process.env.NODE_ENV': JSON.stringify('production'),
+      'process.env.REPOSITORIES': REPOSITORIES
     }),
     new ExtractTextPlugin('app.css'),
     new UglifyJsPlugin()

@@ -138,6 +138,16 @@ export function parseRoute({params, routes, location}) {
 class FilterState {
   constructor(state) {
     this.state = state;
+    if (this.state.repoInfos.length === 0) {
+      const REPOSITORIES = process.env['REPOSITORIES'];
+      const repositories = REPOSITORIES || 'coala';
+      const repoOwner = REPOSITORIES ? REPOSITORIES.split(':')[0] : 'coala';
+
+      // extracting repo names
+      let repoNames = repositories.substring(repositories.indexOf(':') + 1).split('|');
+
+      this.state.repoInfos = repoNames.reduce((acc, repoName) => ([...acc, { repoOwner, repoName }]), []);
+    }
   }
   _chain(obj) {
     return new FilterState(_.defaults(obj, this.state));
