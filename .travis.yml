@@ -5,25 +5,50 @@ cache:
   directories:
     - "node_modules"
 
+.disable_global: &disable_global
+  node_js: false
+  cache: false
+  before_install: false
+  install: false
+  before_script: false
+  script: false
+  after_success: false
+  before_deploy: false
+  deploy: false
+
 # env forces jobs to be created from the top level settings
 env:
 jobs:
   include:
-    - stage: moban
+    - <<: *disable_global
+      stage: moban
       language: python
       python: 3.6
       cache: pip
-      before_install: false
       install: pip install moban
-      before_script: false
       script: .ci/check_moban.sh
-      after_success: false
+
+    - <<: *disable_global
+      stage: lint
+      language: python
+      python: 3.6
+      cache:
+        pip: true
+        directories:
+          - node_modules
+      before_install:
+        - export PATH=$PATH:./node_modules/.bin
+        - export NODE_PATH=$NODE_PATH:./node_modules
+      install:
+        - pip install coala-bears
+        - npm install
+      script: coala --non-interactive -V
 
 # Needed for Firefox
 before_script:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
-  - sleep 3 # give xvfb some time to start
+  - sleep 3  # give xvfb some time to start
 
 script:
   - npm run test
@@ -42,5 +67,5 @@ deploy:
   provider: pages
   skip_cleanup: true
   github_token: $GITHUB_TOKEN
-  on:
+  "on":
     branch: master

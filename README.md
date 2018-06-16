@@ -1,4 +1,5 @@
 # Serverless Kanban Board for GitHub Issues
+
 [![issues][gh-board-image]][gh-board-url]
 [![dependency status][dependency-image]][dependency-url]
 [![dev dependency status][dev-dependency-image]][dev-dependency-url]
@@ -33,13 +34,11 @@ Multiple Repositories in an organization can be shown on a board (from different
 
 ![image](https://cloud.githubusercontent.com/assets/253202/13621991/70bb1312-e569-11e5-86ef-82372752fbff.png)
 
-
 ### Linked Issues and Pull Requests
 
 Just add `#123` or `orgName/RepoName#123` to the Issue or Pull Request body and linked Issues will show up with the column they are in, both below the Card and in the preview popup.
 
 ![image](https://cloud.githubusercontent.com/assets/253202/13620658/63f99478-e55f-11e5-8e9f-9babcfb69a29.png)
-
 
 ### Real-Time Collaboration
 
@@ -56,14 +55,12 @@ Features:
 
 ![gh-board_realtime-editing4](https://cloud.githubusercontent.com/assets/253202/13621429/8c917166-e565-11e5-8e80-10fab6d51253.gif)
 
-
 ### Filtering
 
 - cards can be filtered by label, milestone, board column, or user
 - filters can be inclusive as well as exclusive
 
 ![gh-board_filters](https://cloud.githubusercontent.com/assets/253202/13621706/958fafec-e567-11e5-9411-405de7f34664.gif)
-
 
 ### Milestone Planning
 
@@ -99,7 +96,6 @@ By using the `- [ ]` notation in the body of an Issue or Pull Request, the progr
 
 ![image](https://cloud.githubusercontent.com/assets/253202/13621905/dfee5920-e568-11e5-94df-98a887f63d24.png)
 
-
 ### Burnup Chart
 
 [Why Burnup instead of Burndown?](http://brodzinski.com/2012/10/burn-up-better-burn-down.html)
@@ -110,7 +106,6 @@ If you use select multiple repositories it will include all of them.
 It also skips when nothing was opened or closed that day/month/year (useful to see weekends or holidays).
 
 ![burnup-chart](https://cloud.githubusercontent.com/assets/253202/14406693/5e05c870-fe7d-11e5-9564-ecddb08ebe0d.png)
-
 
 # Issue Image
 
@@ -130,7 +125,6 @@ If you need to rename a column or remove a duplicate label you can get to this p
 
 ![image](https://cloud.githubusercontent.com/assets/253202/14569597/b3388eba-030d-11e6-9b6e-ea03df2f2327.png)
 
-
 # Examples
 
 Just specify a GitHub repository in the URL and off you go!
@@ -140,7 +134,6 @@ Just specify a GitHub repository in the URL and off you go!
 - [huboard/huboard](http://philschatz.com/gh-board/#/r/huboard:huboard)
 - [jquery/jquery](http://philschatz.com/gh-board/#/r/jquery:jquery)
 - Or wildcards! (must be logged in) using `http://philschatz.com/gh-board/#/r/openstax:tutor-js|*`
-
 
 # Development
 
@@ -154,7 +147,6 @@ Just specify a GitHub repository in the URL and off you go!
 - It uses the first repository to get the Issue Labels and Milestones.
 - There are special Labels which represent the board columns (in the format `# - Column Title`)
 - To be a "Good API Citizen" `gh-board` uses eTags provided by GitHub and saves them in `localStorage` (or `IndexedDB`)
-
 
 ### Hosting your own Forked Version
 
@@ -174,7 +166,6 @@ Just specify a GitHub repository in the URL and off you go!
 1. `git pull https://github.com/philschatz/gh-board.git master`
 2. run `npm run deploy`
 
-
 # TODO List
 
 - [x] combine Issue and the Pull Requests that fixes it
@@ -193,12 +184,18 @@ Just specify a GitHub repository in the URL and off you go!
 - [ ] add effort labels XS, S, M, L, XL
 - [ ] add GitHub search
 
-
 [gh-board-image]: https://img.shields.io/github/issues/philschatz/gh-board.svg?label=Issues%20%28gh-board%29
+
 [gh-board-url]: http://philschatz.com/gh-board/
+
 [travis-image]: https://img.shields.io/travis/philschatz/gh-board.svg
+
 [travis-url]: https://travis-ci.org/philschatz/gh-board
+
 [dependency-image]: https://img.shields.io/david/philschatz/gh-board.svg
+
 [dependency-url]: https://david-dm.org/philschatz/gh-board
+
 [dev-dependency-image]: https://img.shields.io/david/dev/philschatz/gh-board.svg
+
 [dev-dependency-url]: https://david-dm.org/philschatz/gh-board?type=dev

@@ -3,15 +3,7 @@
   "plugins": [ "react" ],
   "env": {
     "es6": true,
-    "browser": true,
-  },
-  "ecmaFeatures": {
-    "templateStrings": true,
-    "arrowFunctions": true,
-    "modules": true,
-    "blockBindings": true,
-    "forOf": true,
-    "jsx": true
+    "browser": true
   },
   "rules": {
     "no-unused-vars": 1,
@@ -19,7 +11,6 @@
     "no-var": 2,
     "new-cap": 0,
     "quotes": [1, "single", "avoid-escape"],
-    "semi": 1,
-    "indent": [2, 2]
+    "semi": 1
   }
 }

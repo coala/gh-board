@@ -1,0 +1,28 @@
+[all]
+ignore = node_modules/**, dist/**, .git/**
+use_spaces = true
+
+[all.SpaceConsistencyBear]
+files = **.js, **.json, **.yml, **.yaml, **.md
+bears = SpaceConsistencyBear
+# gantt-chart.js contains mixture of tabs and spaces
+ignore += src/gantt-chart.js
+
+[all.json]
+bears = JSONFormatBear
+files = **.json
+indent_size = 2
+
+[all.js]
+bears = ESLintBear
+eslint_config = .eslintrc
+files = **.js
+ignore += src/gantt-chart.js
+
+[all.markdown]
+bears = MarkdownBear
+files = **.md
+
+[all.yaml]
+bears = YAMLLintBear
+files = **.yml, **.yaml
