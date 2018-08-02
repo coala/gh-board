@@ -53,7 +53,7 @@ const routes = [
           { path: 'by-user', component: ByUserView },
           { path: 'labels', component: BatchLabelsShell },
           // Redirect to the gantt URL
-          { path: 'milestone-review', onEnter: (state) => replace(null, buildRoute('gantt', parseRoute(state))) },
+          { path: 'milestone-review', onEnter: (state,replace) => replace(null, buildRoute('gantt', parseRoute(state))) },
           { path: 'p-issue/:repoOwner/:repoName/:number', component: EtherpadIssueShell},
           { path: 'p-file/:repoOwner/:repoName/:branch/**', component: EtherpadFileShell},
           { path: 'gantt',
@@ -76,9 +76,9 @@ const routes = [
           }
         ] },
       // Catch for people blindly replacing "https://github.com/..." with "gh-board/#..."
-      { path: '/:repoOwner/:repoName', onEnter: ({params}) => replace(null, `/r/${params.repoOwner}:${params.repoName}`) },
+      { path: '/:repoOwner/:repoName', onEnter: ({params},replace) => replace(null, `/r/${params.repoOwner}:${params.repoName}`) },
       // Catch for people blindly replacing "https://github.com/..." with "gh-board/#/r/..."
-      { path: '/r/:repoOwner/:repoName', onEnter: ({params}) => replace(null, `/r/${params.repoOwner}:${params.repoName}`) },
+      { path: '/r/:repoOwner/:repoName', onEnter: ({params},replace) => replace(null, `/r/${params.repoOwner}:${params.repoName}`) },
       { path: '/**', component: NotFoundShell },
     ],
   }
