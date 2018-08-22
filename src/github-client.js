@@ -223,7 +223,7 @@ class Client extends EventEmitter {
     // it is a must to return a new instance as there is no concurrency support
     // see github-graphql.js for more details
     const ignoreAuthor = 'gitmate-bot rultor TravisBuddy';
-    const ignoreContent = '@gitmate-bot @rultor /^(unack|ack)/g';
+    const ignoreContent = '@gitmate-bot @rultor ^(unack|ack)';
     return new GraphQLClient(token, ignoreAuthor, ignoreContent, emitter);
   }
   getAnonymousOcto() {

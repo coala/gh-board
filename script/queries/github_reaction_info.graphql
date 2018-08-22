@@ -1,10 +1,15 @@
 query($owner: String!, $name: String!, $number: Int!,
-  $reviewCnt: Int!, $maxCommentsPerReview: Int!, $commentCnt: Int!) {
+  $reviewsCount: Int!, $discussionsPerReview: Int!, $commentsCount: Int!) {
+  rateLimit {
+    limit
+    remaining
+    resetAt
+  }
   repository(owner:$owner, name:$name) {
     pullRequest(number: $number) {
-        reviews(first: $reviewCnt) {
+        reviews(first: $reviewsCount) {
           nodes {
-            comments(first: $maxCommentsPerReview) {
+            comments(first: $discussionsPerReview) {
               nodes {
                 id
                 reactions(first: 100) {
@@ -22,7 +27,7 @@ query($owner: String!, $name: String!, $number: Int!,
             }
           }
         }
-        comments(first:$commentCnt) {
+        comments(first:$commentsCount) {
           nodes {
             id
             reactions(first: 100) {

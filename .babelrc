@@ -1,0 +1,12 @@
+{
+  presets: [
+    'react',
+    'env',
+  ],
+  plugins: [
+    'react-require',
+    'transform-object-rest-spread',
+    'transform-class-properties',
+    'babel-plugin-inline-import',
+  ],
+}

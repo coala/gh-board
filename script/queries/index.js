@@ -1,8 +1,14 @@
-const fs = require('fs');
-const loadQuery = name =>
-  fs.readFileSync(`${__dirname}/${name}.graphql`).toString();
-
-module.exports.GITHUB_ISSUE_INFO_QUERY = loadQuery('github_issue_info');
-module.exports.GITHUB_PR_INFO_QUERY = loadQuery('github_pr_info');
-module.exports.GITHUB_LABEL_INFO_QUERY = loadQuery('github_label_info');
-module.exports.GITHUB_REACTION_INFO_QUERY = loadQuery('github_reaction_info');
+import GITHUB_ISSUE_INFO_QUERY from './github_issue_info.graphql';
+import GITHUB_PR_INFO_QUERY from './github_pr_info.graphql';
+import GITHUB_LABEL_INFO_QUERY from './github_label_info.graphql';
+import GITHUB_REACTION_INFO_QUERY from './github_reaction_info.graphql';
+import GITHUB_REACTION_ADD_MUTATION from './github_reaction_add.graphql';
+import GITHUB_REACTION_REMOVE_MUTATION from './github_reaction_remove.graphql';
+export {
+  GITHUB_ISSUE_INFO_QUERY,
+  GITHUB_PR_INFO_QUERY,
+  GITHUB_LABEL_INFO_QUERY,
+  GITHUB_REACTION_INFO_QUERY,
+  GITHUB_REACTION_ADD_MUTATION,
+  GITHUB_REACTION_REMOVE_MUTATION,
+};

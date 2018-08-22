@@ -4,7 +4,6 @@ import EtherpadClient from 'etherpad-lite-client';
 import {Link} from 'react-router';
 
 import history from '../history';
-import Client from '../github-client';
 import IssueStore from '../issue-store';
 import UserStore from '../user-store';
 import {getFilters} from '../route-utils';
@@ -15,12 +14,12 @@ import GithubFlavoredMarkdown from './gfm';
 const EtherpadInner = createReactClass({
   getDefaultProps() {
     return {
-      hostName: 'https://openstax-pad.herokuapp.com',
-      secret: 'openstax'
+      hostName: window.localStorage.getItem('ep-url'),
+      secret: window.localStorage.getItem('ep-apikey')
     };
   },
   getInitialState() {
-    return {isSaving: false, text: 'Please wait, it may take 30sec for the free Heroku site to spin up. See [Heroku Free Dynos](https://blog.heroku.com/archives/2015/5/7/heroku-free-dynos)'};
+    return {isSaving: false, text: 'Please wait. If you see this message for long time, please check "Etherpad Server Settings".'};
   },
   componentDidMount() {
     this.poll();
@@ -30,16 +29,26 @@ const EtherpadInner = createReactClass({
   },
   poll() {
     // Start polling
-    Client.getAnonymousOcto().fromUrl(`${this.getUrl()}/export/txt`).read().then((text) => {
-      this.setState({text});
-      // This is the magic text inside a newly-created pad.
-      // Defined in `etherpad-lite-heroku`'s settings file
-      if (text.indexOf('Welcome to Etherpad!') >= 0) {
-        this.loadIssueBody().then(() => {
-          this.poll(); // Should be guaranteed to no longer be "This is an empty pad"
-        });
+    const etherpad = EtherpadClient.connect(
+      this.getEtherpadInfo()
+    );
+    etherpad.getText({padID: this.props.padName}, (error, data) => {
+      if (error) {
+        console.error('Error creating pad: ' + error.message);
+        if (error.message === 'padID does not exist') {
+          this.loadIssueBody().then(() => {
+            this.poll(); // Should be guaranteed to no longer be "This is an empty pad"
+          });
+        }
       } else {
-        this.__timeout = setTimeout(this.poll, 2000);
+        this.setState({text:data.text});
+        if (data.text.indexOf('Welcome to Etherpad!') >= 0) {
+          this.loadIssueBody().then(() => {
+            this.poll(); // Should be guaranteed to no longer be "This is an empty pad"
+          });
+        } else {
+          this.__timeout = setTimeout(this.poll, 2000);
+        }
       }
     });
   },
@@ -52,18 +61,27 @@ const EtherpadInner = createReactClass({
     // from https://github.com/ether/etherpad-lite-jquery-plugin/blob/master/js/etherpad.js
     return `${hostName}/p/${padName}`;
   },
+  getEtherpadInfo() {
+    const reg = /^(?:([^:\/?#]+):)?(?:\/\/([^\/?#]*):([0-9]+))?([^?#]*)(?:\?([^#]*))?(?:#(.*))?/;
+    let m = window.localStorage.getItem('ep-url').match(reg);
+    if (m) {
+      return {
+        apikey: window.localStorage.getItem('ep-apikey'),
+        host: m[2],
+        port: parseInt(m[3]),
+        ssl: m[1] === 'https' ? true : false
+      };
+    } else {
+      // TODO:Error handling
+    }
+  },
   loadIssueBody() {
     const {loadBody} = this.props;
 
     return loadBody().then((text) => {
-      // const url = `${hostName}/api/1/setText?apiKey=${secret}&padID=${this.getPad()}&text=`;
-      const etherpad = EtherpadClient.connect({
-        apikey: 'openstaxkey',
-        host: 'openstax-pad.herokuapp.com',
-        port: 443,
-        protocol: 'https:', //because browserify's `https` module is really `http`
-        ssl: true
-      });
+      const etherpad = EtherpadClient.connect(
+        this.getEtherpadInfo()
+      );
       etherpad.setText({padID: this.props.padName, text: text}, (err) => {
         /* eslint-disable no-console */
         console.log('Because of CORS this returns an error but actually succeeeds');

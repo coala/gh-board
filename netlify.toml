@@ -1,0 +1,3 @@
+[build]
+  publish = "."
+  command = "script/build.sh && script/verify-files.sh"

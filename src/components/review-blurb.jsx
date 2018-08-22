@@ -1,16 +1,17 @@
+import * as BS from 'react-bootstrap';
 import Database from '../database';
 import Loadable from './loadable';
 
 function ReviewBlurb({card: {url}}) {
-  const reviewNumber = url.split('/').pop();
-
   return (
     <span className='review-blurb'>
       <a className='blurb-number-link'
         target='_blank'
         href={url}
         >
-        <span className='blurb-number'>{reviewNumber}</span>
+        <BS.Button bsClass="review-btn">
+          View Discussion
+        </BS.Button>
       </a>
     </span>
   );

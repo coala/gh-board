@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`does not display number zero 1`] = `
+Array [
+  <button
+    className="reaction-btn reaction-btn-default"
+    disabled={true}
+    onClick={[Function]}
+    type="button"
+  >
+    👍
+     
+  </button>,
+  <button
+    className="reaction-btn reaction-btn-default"
+    disabled={true}
+    onClick={[Function]}
+    type="button"
+  >
+    👎
+     
+  </button>,
+  <button
+    className="reaction-btn reaction-btn-default"
+    disabled={true}
+    onClick={[Function]}
+    type="button"
+  >
+    😄
+     
+  </button>,
+  <button
+    className="reaction-btn reaction-btn-default"
+    disabled={true}
+    onClick={[Function]}
+    type="button"
+  >
+    🎉
+     
+  </button>,
+  <button
+    className="reaction-btn reaction-btn-default"
+    disabled={true}
+    onClick={[Function]}
+    type="button"
+  >
+    😕
+     
+  </button>,
+  <button
+    className="reaction-btn reaction-btn-default"
+    disabled={true}
+    onClick={[Function]}
+    type="button"
+  >
+    ❤️
+     
+  </button>,
+]
+`;

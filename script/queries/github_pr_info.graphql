@@ -1,6 +1,11 @@
-query($owner: String!, $name: String!, $before: String) {
+query($owner: String!, $name: String!, $perPage: Int!, $before: String, $orderBy: IssueOrder!) {
+  rateLimit {
+    limit
+    remaining
+    resetAt
+  }
   repository(owner:$owner, name:$name) {
-    pullRequests(last:30, before:$before) {
+    pullRequests(last:$perPage, before:$before, orderBy:$orderBy) {
       pageInfo {
         startCursor
         hasPreviousPage

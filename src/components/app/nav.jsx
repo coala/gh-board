@@ -14,6 +14,7 @@ import LoginModal from '../login-modal';
 import LabelBadge from '../label-badge';
 import MoveModal from '../move-modal';
 import FilterDropdown from './filter-dropdown';
+import EtherpadModal from '../etherpad-modal';
 
 
 function SettingsItem(props) {
@@ -90,10 +91,11 @@ class AppNav extends Component {
   render() {
     let routeInfo = getFilters().getState();
     let {repoInfos} = routeInfo;
-    const {info, showModal} = this.state;
+    const {info, showModal, showEPModal} = this.state;
 
     // Note: The dashboard page does not have a list of repos
     const close = () => this.setState({ showModal: false});
+    const closeEP = () => this.setState({showEPModal: false});
 
     const brand = (
       <Link to={buildRoute('dashboard')}><HomeIcon/></Link>
@@ -275,11 +277,16 @@ class AppNav extends Component {
               <SettingsItem key='gantt-chart' to={getFilters().setRouteName('gantt').url()}><GraphIcon/> Gantt Chart</SettingsItem>
               <SettingsItem key='label-editing' to={getFilters().setRouteName('labels').url()}><TagIcon/> Label Editing</SettingsItem>
               <BS.MenuItem key='reset-databases' onClick={this.promptAndResetDatabases}>Reset Local Cache...</BS.MenuItem>
+              <BS.MenuItem key='divider4' divider/>
+              <BS.MenuItem key='collaborative-settings' header>Collaborative Settings</BS.MenuItem>
+              <BS.MenuItem key='server-setting' onClick={() => this.setState({showEPModal: true})}>Etherpad Server Settings...</BS.MenuItem>
+
             </BS.NavDropdown>
             {loginButton}
           </BS.Nav>
         </BS.Navbar>
         <LoginModal show={showModal} container={this} onHide={close}/>
+        <EtherpadModal show={showEPModal} container={this} onHide={closeEP}/>
         <MoveModal container={this}/>
       </div>
     );

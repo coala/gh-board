@@ -6,7 +6,9 @@ import {
   GITHUB_PR_INFO_QUERY,
   GITHUB_LABEL_INFO_QUERY,
   GITHUB_REACTION_INFO_QUERY,
-} from '../script/queries/export';
+  GITHUB_REACTION_ADD_MUTATION,
+  GITHUB_REACTION_REMOVE_MUTATION,
+} from '../script/queries';
 
 const DEBUG = process.env.NODE_ENV === 'development';
 
@@ -148,12 +150,55 @@ class GraphQLClient {
     return this;
   }
 
+  // first type of mutations: add reaction
+  // return boolean value indicating result of action
+  async addReaction({id, content}) {
+    if (DEBUG) {
+      console.log('add reaction for id', id, 'with content', content);
+    }
+    let data, errors;
+    try {
+      ({ data, errors } = await this.client.query(
+        GITHUB_REACTION_ADD_MUTATION,
+        {id, content}
+      ));
+    } catch (error) {
+      return {result: false, msg: error};
+    }
+    if (!data || errors) {
+      return {result: false, msg: errors};
+    }
+    return {result: true, msg: data};
+  }
+
+  // second type of mutations: remove reaction
+  // return boolean value indicating result of action
+  async removeReaction({id, content}) {
+    if (DEBUG) {
+      console.log('remove reaction for id', id, 'with content', content);
+    }
+    let data, errors;
+    try {
+      ({ data, errors } = await this.client.query(
+        GITHUB_REACTION_REMOVE_MUTATION,
+        {id, content}
+      ));
+    } catch (error) {
+      return {result: false, msg: error};
+    }
+    if (!data || errors) {
+      return {result: false, msg: errors};
+    }
+    return {result: true, msg: data};
+  }
+
   async fetchAll(config) {
     const { per_page } = config || {};
     this.perPage = per_page || 100;
     this.cursor = null;
     this.pageCount = 0;
     this.fetchedData = null;
+    this.warningCount = 0;
 
     if (this._fetch === this._fetchLabels
         || this._fetch === this._fetchReactions) {
@@ -165,8 +210,6 @@ class GraphQLClient {
     // fetch data with pagination
     this.pagination = true;
     while (this.pagination) {
-      // clear warning count before every fresh fetch
-      this.warningCount = 0;
       await this._fetch(this.cursor);
     }
     if (DEBUG) {
@@ -324,9 +367,9 @@ class GraphQLClient {
         this.fetchedData = [];
       }
 
-      // if result === [null], skip it
-      if (result && result.length && result[0]) {
-        this.fetchedData = this.fetchedData.concat(result);
+      if (result && result.length) {
+        // filter out null element
+        this.fetchedData = this.fetchedData.concat(result.filter((elem) => elem));
       }
 
       if (!hasPreviousPage || reachDateThreshold) {
@@ -412,7 +455,8 @@ class GraphQLClient {
           const commentsCount = Math.min(node.comments.totalCount, 100);
 
           const commentsWithReactions = await new GraphQLClient(this.token,
-            this.sleepTime, this.emitter, 3)
+            this.ignoreAuthor, this.ignoreContent,
+            this.emitter, this.sleepTime, 3)
             .repo(this.repoOwner, this.repoName)
             .reactions({pr_number: number,
               reviews_count: reviewsCount,
@@ -496,9 +540,9 @@ class GraphQLClient {
         this.fetchedData = [];
       }
 
-      // if result === [null], skip it
-      if (result && result.length && result[0]) {
-        this.fetchedData = this.fetchedData.concat(result);
+      if (result && result.length) {
+        // filter out null element
+        this.fetchedData = this.fetchedData.concat(result.filter((elem) => elem));
       }
 
       if (!hasPreviousPage || reachDateThreshold) {
@@ -573,12 +617,6 @@ class GraphQLClient {
     return result;
   }
 
-  _updateRateLimit(rateLimit) {
-    this.remaining = rateLimit.remaining;
-    this.limit = rateLimit.limit;
-    this.resetAt = rateLimit.resetAt;
-  }
-
   _slowStart() {
     // strategy to save API limit and network bandwidth
     // a common senario of the client is to sync updated issues/prs
@@ -603,8 +641,8 @@ class GraphQLClient {
     } else {
       console.log('warning count:', warningCount, 'reaches warning threshold',
         this.warningThreshold, 'stop fetching');
-      // reset warning count
-      this.warningCount = 0;
+      // stop pagination, if any
+      this.pagination = false;
     }
   }
 }

@@ -11,6 +11,7 @@ import Client from '../github-client';
 import CurrentUserStore from '../user-store';
 import AsyncButton from './async-button';
 import Time from './time';
+import withAuth from './login-auth';
 
 const SAMPLE_REPOS = [
   {repoOwner: 'huboard', repoName: 'huboard'},
@@ -335,27 +336,13 @@ class ExamplesPanel extends Component {
 class DashboardShell extends Component {
   state = {repos: null};
 
-  componentDidMount() {
-    Client.on('changeToken', this.onChangeToken);
-    this.onChangeToken();
+  componentDidUpdate(prevProps) {
+    if (this.props.loginInfo && this.props.loginInfo !== prevProps.loginInfo) {
+      Client.dbPromise().then(() => Client.getOcto().user.repos.fetchAll())
+        .then((allRepos) => this.setState({repos: allRepos}))
+        .catch(() => this.setState({repos: []}));
+    }
   }
-
-  componentWillUnmount() {
-    Client.off('changeToken', this.onChangeToken);
-  }
-
-  onChangeToken = () => {
-    CurrentUserStore.fetchUser()
-    .then((currentUser) => {
-      if (currentUser) {
-        return Client.dbPromise().then(() => Client.getOcto().user.repos.fetchAll());
-      } else {
-        return []; // Anonymous has no repos
-      }
-    })
-    .then((allRepos) => this.setState({repos: allRepos}))
-    .catch(() => this.setState({repos: []}));
-  };
 
   render() {
     let {repos} = this.state;
@@ -390,4 +377,4 @@ class DashboardShell extends Component {
   }
 }
 
-export default DashboardShell;
+export default withAuth(DashboardShell);

@@ -20,6 +20,8 @@ Why waste time and money paying for a Ticket Tracker when you already work in Gi
   - [Issue Images](#issue-images)
   - [Pull Request to non-default branch](#pull-request-to-non-default-branch)
   - [Batch-Edit Labels in Multiple Repositories](#batch-edit-labels-in-multiple-repositories)
+  - [Review Filtering](#review-filtering)
+  - [Add and Remove Reactions](#add-and-remove-reactions)
 - [Examples](#examples)
 - [Development](#development)
   - [How Does it Work?](#how-does-it-work)
@@ -130,6 +132,17 @@ If you need to rename a column or remove a duplicate label you can get to this p
 
 ![image](https://cloud.githubusercontent.com/assets/253202/14569597/b3388eba-030d-11e6-9b6e-ea03df2f2327.png)
 
+### Review Filtering
+
+Reviews can be filtered by pull request author, review author and meta-review author.
+
+![image](https://user-images.githubusercontent.com/25746010/43847770-0647a8c0-9b64-11e8-8f1b-780a1ae50cbc.gif)
+
+### Add and Remove Reactions
+
+You can add or remove your own reactions directly on gh-board.
+
+![image](https://user-images.githubusercontent.com/25746010/43847257-c227810c-9b62-11e8-9e5e-0a799ee0d512.gif)
 
 # Examples
 

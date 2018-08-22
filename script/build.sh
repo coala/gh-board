@@ -3,4 +3,4 @@
 set -e -x
 
 npm run build
-node ./script/fetch-issues.js
+NODE_ENV=development npx babel-node script/fetch-issues.js

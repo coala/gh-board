@@ -5,11 +5,27 @@ cache:
   directories:
     - "node_modules"
 
+.disable_global: &disable_global
+  after_success: false
+  after_failure: false
+  deploy: false
+
+.integration: &integration
+  <<: *disable_global
+  stage: integration
+  # Needed for Firefox
+  before_script:
+    - export DISPLAY=:99.0
+    - sh -e /etc/init.d/xvfb start
+    - sleep 3 # give xvfb some time to start
+  script: script/run-integration-test.sh
+
 # env forces jobs to be created from the top level settings
 env:
 jobs:
   include:
-    - stage: moban
+    - <<: *disable_global
+      stage: moban
       language: python
       python: 3.6
       cache: pip
@@ -17,18 +33,28 @@ jobs:
       install: pip install moban
       before_script: false
       script: .ci/check_moban.sh
-      after_success: false
-      deploy: false
+    - *integration
+  allow_failures:
+    - *integration
 
-# Needed for Firefox
-before_script:
-  - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start
-  - sleep 3 # give xvfb some time to start
+before_install:
+  - npm install --no-save --no-optional --only=dev npm@5.8.0
+
+install:
+  - npm install --no-save --no-optional
 
 script:
+  # bufferstream in package-lock.json means optional dependencies
+  # have been included.
+  - if grep bufferstream package-lock.json ; then false; fi
   - script/build.sh
   - npm run test
+
+after_success:
+  - codecov
+
+after_failure:
+  - codecov
 
 notifications:
   email: false

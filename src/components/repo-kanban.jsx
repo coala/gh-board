@@ -6,7 +6,6 @@ import {ListUnorderedIcon} from 'react-octicons';
 import {getFilters} from '../route-utils';
 import {filterKanbanLabels} from '../lib/columns';
 import {UNCATEGORIZED_NAME} from '../helpers';
-import Client from '../github-client';
 import IssueStore from '../issue-store';
 import {filterCards} from '../issue-store';
 import SettingsStore from '../settings-store';
@@ -19,6 +18,7 @@ import Issue from './issue';
 import Review from './review';
 import Board from './board';
 import AnonymousModal from './anonymous-modal';
+import withAuth from './login-auth';
 import {titlecaps} from 'titlecaps';
 
 
@@ -92,30 +92,13 @@ function ReviewColumn(props) {
 }
 
 class KanbanRepo extends Component {
-  state = {login: null};
-
   componentDidMount() {
     const repoTitle = titlecaps(this.props.repoInfos[0].repoName);
     document.title = `${repoTitle} Kanban Board`;
-    Client.on('changeToken', this.onChangeToken);
-    this.onChangeToken();
   }
-
-  componentWillUnmount() {
-    Client.off('changeToken', this.onChangeToken);
-  }
-
-  onChangeToken = () => {
-    CurrentUserStore.fetchUser()
-    .then((info) => {
-      this.setState({login: info.login});
-    }).catch(() => {
-      this.setState({login: null});
-    });
-  };
 
   render() {
-    const {columnData, cards, repoInfos} = this.props;
+    const {columnData, cards, repoInfos, loginInfo} = this.props;
 
     // Get review comments out of cards
     const reviews = _.flatten(cards.map((card) => {
@@ -134,7 +117,7 @@ class KanbanRepo extends Component {
     }));
 
     // filter and sort review comments
-    const sortedReviews = FilterStore.filterAndSortReviews(reviews, this.state.login);
+    const sortedReviews = FilterStore.filterAndSortReviews(reviews, loginInfo ? loginInfo.login : null);
 
     // Get the primary repoOwner and repoName
     const [primaryRepo] = repoInfos;
@@ -206,7 +189,7 @@ class RepoKanbanShell extends Component {
     return (
       <Board {...this.props}
         repoInfos={repoInfos}
-        type={KanbanRepo}
+        type={withAuth(KanbanRepo)}
         columnDataPromise={promise}
       />
     );
