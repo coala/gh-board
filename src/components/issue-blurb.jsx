@@ -10,7 +10,7 @@ import Loadable from './loadable';
 import ColoredIcon from './colored-icon';
 
 function IssueOrPullRequestBlurb(props) {
-  const {card, primaryRepoName, context, repo, onClickIcon} = props;
+  const {card, primaryRepoName, context, repo} = props;
   const {issue, repoOwner, repoName, number} = card;
   const isPrivate = repo && repo.isPrivate;
 
@@ -59,7 +59,6 @@ function IssueOrPullRequestBlurb(props) {
         <GitPullRequestIcon
           title='Click for Pull Request Details'
           className='blurb-icon'
-          onClick={onClickIcon}
           data-state={state}/>
       );
     } else {
@@ -77,7 +76,6 @@ function IssueOrPullRequestBlurb(props) {
         <IconType
           title='Click for Issue Details'
           className='blurb-icon'
-          onClick={onClickIcon}
           data-state={issue.state}/>
       );
     }
