@@ -173,6 +173,7 @@ class AppNav extends Component {
           <span className='repo-owner'>{repoOwner}</span>
           {'/'}
           {repoNameItems}
+          <img className='avatar-image' src={'https://github.com/' + repoOwner + '.png'} alt='repo-owner'/>
         </li>
       );
     }

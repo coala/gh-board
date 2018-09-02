@@ -187,6 +187,7 @@ class RepoGroup extends Component {
     }
     const header = (
       <span className='org-header'>
+        <img className='org-logo' src={'https://github.com/' + repoOwner + '.png'} alt='repo-owner'/>
         {orgIcon}
         {' '}
         {repoOwner}
