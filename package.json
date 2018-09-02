@@ -107,6 +107,6 @@
   "ava": {
     "files": [
       "test/integration/**.js"
-	]
+    ]
   }
 }
