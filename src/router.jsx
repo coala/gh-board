@@ -27,7 +27,7 @@ import {parseRoute, buildRoute} from './route-utils';
 const routes = [
   // Redirect from `/dashboard` to `/`
   { path: '/dashboard',
-    onEnter: (state, replace) => browserHistory.push('/')
+    onEnter: (state) => browserHistory.push('/')
   },
   { path: '/',
     component: App,
@@ -43,7 +43,7 @@ const routes = [
           // Redirect from `/r/.../kanban` to `/r/...` . keep 'kanban' in the code so it is clear where the link is going
           { path: 'kanban',
             component: RepoKanban
-            // onEnter: (state, replace) => replace(null, buildRoute('', parseRoute(state)))
+            // onEnter: (state) => replace(null, buildRoute('', parseRoute(state)))
           },
           { path: 'since', component: MergedSinceFormShell},
           { path: 'compare', component: MergedSinceFormShell},
@@ -53,7 +53,7 @@ const routes = [
           { path: 'by-user', component: ByUserView },
           { path: 'labels', component: BatchLabelsShell },
           // Redirect to the gantt URL
-          { path: 'milestone-review', onEnter: (state, replace) => replace(null, buildRoute('gantt', parseRoute(state))) },
+          { path: 'milestone-review', onEnter: (state,replace) => replace(null, buildRoute('gantt', parseRoute(state))) },
           { path: 'p-issue/:repoOwner/:repoName/:number', component: EtherpadIssueShell},
           { path: 'p-file/:repoOwner/:repoName/:branch/**', component: EtherpadFileShell},
           { path: 'gantt',
@@ -67,7 +67,7 @@ const routes = [
           },
           { path: 'burnup',
             // Keep the review page as a separate chunk because it contains d3
-            getComponent(location, callback) {
+            getComponent( location,callback) {
               require.ensure([], (require) => {
                 // Remember to add the `.default`!
                 callback(null, require('./components/burnup').default);
@@ -76,9 +76,9 @@ const routes = [
           }
         ] },
       // Catch for people blindly replacing "https://github.com/..." with "gh-board/#..."
-      { path: '/:repoOwner/:repoName', onEnter: ({params}, replace) => replace(null, `/r/${params.repoOwner}:${params.repoName}`) },
+      { path: '/:repoOwner/:repoName', onEnter: ({params},replace) => replace(null, `/r/${params.repoOwner}:${params.repoName}`) },
       // Catch for people blindly replacing "https://github.com/..." with "gh-board/#/r/..."
-      { path: '/r/:repoOwner/:repoName', onEnter: ({params}, replace) => replace(null, `/r/${params.repoOwner}:${params.repoName}`) },
+      { path: '/r/:repoOwner/:repoName', onEnter: ({params},replace) => replace(null, `/r/${params.repoOwner}:${params.repoName}`) },
       { path: '/**', component: NotFoundShell },
     ],
   }
