@@ -27,7 +27,7 @@ import {parseRoute, buildRoute} from './route-utils';
 const routes = [
   // Redirect from `/dashboard` to `/`
   { path: '/dashboard',
-    onEnter: (state, replace) => browserHistory.push('/')
+    onEnter: () => browserHistory.push('/')
   },
   { path: '/',
     component: App,
