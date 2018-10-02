@@ -1,6 +1,6 @@
 import React from 'react'; // eslint-disable-line
 import ReactDOM from 'react-dom';
-import {Router, browserHistory} from 'react-router';
+import {Router} from 'react-router';
 
 import history from './history';
 import App from './components/app';
@@ -27,7 +27,7 @@ import {parseRoute, buildRoute} from './route-utils';
 const routes = [
   // Redirect from `/dashboard` to `/`
   { path: '/dashboard',
-    onEnter: (state, replace) => browserHistory.push('/')
+    onEnter: (state, replace) => history.push('/')
   },
   { path: '/',
     component: App,
