@@ -8,7 +8,6 @@
 *.orig
 *.diff
 
-!/src/lib
-
+!/src/lib/columns.js
 
 {% endblock %}

@@ -458,4 +458,4 @@ cscope.po.out
 *.diff
 
 # Explicitly include all source files in lib
-!/src/lib
+!/src/lib/*
