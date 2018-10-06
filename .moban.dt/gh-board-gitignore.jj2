@@ -8,7 +8,5 @@
 *.orig
 *.diff
 
-!/src/lib
-
 
 {% endblock %}
