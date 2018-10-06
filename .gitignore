@@ -456,3 +456,6 @@ cscope.po.out
 *.patch
 *.orig
 *.diff
+
+# Explicitly include all source files in lib
+!/src/lib
