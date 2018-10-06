@@ -8,4 +8,9 @@
 *.orig
 *.diff
 
+<<<<<<< HEAD
+!/src/lib/columns.js
+=======
+>>>>>>> 537bb9c... Include /src/lib directory in git
+
 {% endblock %}
