@@ -8,4 +8,9 @@
 *.orig
 *.diff
 
+<<<<<<< HEAD
+!/src/lib/columns.js
+=======
+>>>>>>> 537bb9ce2fd5a982c1a9a61aed172646a2424c02
+
 {% endblock %}
