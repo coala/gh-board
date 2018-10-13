@@ -271,9 +271,12 @@ class GraphQLClient {
         data.repository.pullRequest.comments.nodes);
     } else {
       this.warningCount++;
-      console.log('warning: no available reaction data!',
-        'owner:', owner, 'name:', name, 'pull request number:', number,
-        'error:', errors);
+      if (DEBUG) {
+        console.log('warning: no available reaction data!',
+          'owner:', owner, 'name:', name, 'pull request number:', number,
+          'error:', errors);
+      }
+  
       return await this._handleWarning(this._fetchReactions);
     }
     // reactions are wrapped by corresponding comment
