@@ -123,6 +123,7 @@ const issueStore = new class IssueStore extends EventEmitter {
         }
       }
     });
+    this.isInitialFetch = true;
   }
   off() { // EventEmitter has `.on` but no matching `.off`
     const slice = [].slice;
@@ -359,10 +360,19 @@ const issueStore = new class IssueStore extends EventEmitter {
   _fetchAllIssues(repoInfos, progress, isForced) {
     // Start/keep polling
     if (!this.polling && isPollingEnabled) {
-      this.polling = setTimeout(() => {
-        this.polling = null;
-        this._fetchAllIssues(repoInfos, progress, true /*isForced*/);
-      }, getReloadTime());
+      if (this.isInitialFetch) {
+        this.isInitialFetch = false;
+        this.polling = setTimeout(() => {
+          this.polling = null;
+          this._fetchAllIssues(repoInfos, progress, true);
+        });
+        return Promise.resolve([]);
+      } else {
+        this.polling = setTimeout(() => {
+          this.polling = null;
+          this._fetchAllIssues(repoInfos, progress, true /*isForced*/);
+        }, getReloadTime());
+      }
     }
     if (!isForced && cacheCards && cacheCardsRepoInfos === JSON.stringify(repoInfos)) {
       return Promise.resolve(cacheCards);
