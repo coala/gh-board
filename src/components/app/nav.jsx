@@ -72,14 +72,6 @@ class AppNav extends Component {
     CurrentUserStore.clear();
   };
 
-  starThisProject = () => {
-    Client.getOcto().user.starred('philschatz/gh-board').add().then(() => {
-      /*eslint-disable no-alert */
-      alert('Thanks for starring!\n I hope you enjoy the other pages more than this simple alert, but thank you for helping me out!');
-      /*eslint-enable no-alert */
-    });
-  };
-
   promptAndResetDatabases = () => {
     if (confirm('Are you sure you want to reset all the local data? It will take some time to repopulate all the data from GitHub and you may need to reload the page')) {
       Database.resetDatabases().then(() => {
@@ -131,9 +123,8 @@ class AppNav extends Component {
       loginButton = (
         <BS.NavDropdown key='signin-dropdown' id='signin-dropdown' title={avatarImage}>
           <BS.MenuItem key='1' header>Signed in as <strong>{info.login}</strong></BS.MenuItem>
-          <BS.MenuItem key='2' onSelect={this.starThisProject}>Click to <StarIcon className='icon-spin' style={{color: '#fbca04'}}/> the <strong>gh-board</strong> repo if you like this project</BS.MenuItem>
-          <BS.MenuItem key='3' divider/>
-          <BS.MenuItem key='4' eventKey='1'><span onClick={this.onSignOut}>Sign Out</span></BS.MenuItem>
+          <BS.MenuItem key='2' divider/>
+          <BS.MenuItem key='3' eventKey='1'><span onClick={this.onSignOut}>Sign Out</span></BS.MenuItem>
         </BS.NavDropdown>
       );
     } else {
