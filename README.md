@@ -184,7 +184,7 @@ Just specify a GitHub repository in the URL and off you go!
 
 ###### To update your fork with the upstream (this repo)
 
-1. `git pull https://github.com/philschatz/gh-board.git master`
+1. `git pull https://github.com/coala/gh-board.git master`
 2. run `npm run deploy`
 
 
@@ -207,11 +207,11 @@ Just specify a GitHub repository in the URL and off you go!
 - [ ] add GitHub search
 
 
-[gh-board-image]: https://img.shields.io/github/issues/philschatz/gh-board.svg?label=Issues%20%28gh-board%29
+[gh-board-image]: https://img.shields.io/github/issues/coala/gh-board.svg?label=Issues%20%28gh-board%29
 [gh-board-url]: http://philschatz.com/gh-board/
-[travis-image]: https://img.shields.io/travis/philschatz/gh-board.svg
-[travis-url]: https://travis-ci.org/philschatz/gh-board
-[dependency-image]: https://img.shields.io/david/philschatz/gh-board.svg
-[dependency-url]: https://david-dm.org/philschatz/gh-board
-[dev-dependency-image]: https://img.shields.io/david/dev/philschatz/gh-board.svg
-[dev-dependency-url]: https://david-dm.org/philschatz/gh-board?type=dev
+[travis-image]: https://img.shields.io/travis/coala/gh-board.svg
+[travis-url]: https://travis-ci.org/coala/gh-board
+[dependency-image]: https://img.shields.io/david/coala/gh-board.svg
+[dependency-url]: https://david-dm.org/coala/gh-board
+[dev-dependency-image]: https://img.shields.io/david/dev/coala/gh-board.svg
+[dev-dependency-url]: https://david-dm.org/coala/gh-board?type=dev
