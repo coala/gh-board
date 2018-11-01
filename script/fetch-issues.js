@@ -14,13 +14,11 @@ let earliestDate = process.env.EARLIEST_DATE || '2017-01-01T00:00:00Z';
 
 if (isDeployPreview) {
   const earliestDateForPr = process.env.EARLIEST_DATE_PR ||
-    '2018-04-01T00:00:00Z';
-  if (getTime(earliestDate) < getTime(earliestDateForPr)) {
-    earliestDate = earliestDateForPr;
-    console.log('To speed up netlify pr build, set earliest date threshold',
-      earliestDate);
-  }
+    moment().subtract(3, 'months').format('YYYY-MM-DDThh:mm:ssZ');
+  earliestDate = earliestDateForPr;
 }
+
+console.log('The earliest date has been set to', earliestDate);
 
 // review will be ignored if it's written by any author specified here
 // delimiter: space
