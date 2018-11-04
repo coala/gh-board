@@ -132,7 +132,7 @@ function IssueSimple(props) {
       <a
         className='issue-title'
         target='_blank'
-        href={issue.htmlUrl}>
+        href={card.isPullRequest() ? issue.htmlUrl+'/files' : issue.htmlUrl}>
         <GithubFlavoredMarkdown
           className='-issue-title-text'
           inline
@@ -144,7 +144,7 @@ function IssueSimple(props) {
       <a
         className='issue-number'
         target='_blank'
-        href={issue.htmlUrl}>
+        href={card.isPullRequest() ? issue.htmlUrl+'/files' : issue.htmlUrl}>
         #{issue.number}
       </a>
     </BS.ListGroupItem>
@@ -450,7 +450,7 @@ function IssueCard(props) {
               key='link'
               className='issue-title'
               target='_blank'
-              href={issue.htmlUrl}>
+              href={card.isPullRequest() ? issue.htmlUrl+'/files' : issue.htmlUrl}>
                 <GithubFlavoredMarkdown
                   inline
                   repoOwner={repoOwner}
