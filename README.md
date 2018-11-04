@@ -2,29 +2,34 @@
 [![issues][gh-board-image]][gh-board-url]
 [![dependency status][dependency-image]][dependency-url]
 [![dev dependency status][dev-dependency-image]][dev-dependency-url]
+[![travis][travis-image]][travis-url]
 
 Why waste time and money paying for a Ticket Tracker when you already work in GitHub? Now, you don't have to.
 
 ![image](https://cloud.githubusercontent.com/assets/253202/13620649/4ef888cc-e55f-11e5-8576-8970abba8660.png)
 
+- [Serverless Kanban Board for GitHub Issues](#serverless-kanban-board-for-github-issues)
 - [Features](#features)
-  - [Multiple Repositories](#multiple-repositories)
-  - [Linked Issues and Pull Requests](#linked-issues-and-pull-requests)
-  - [Real-Time Collaboration](#real-time-collaboration)
-  - [Filtering](#filtering)
-  - [Milestone Planning](#milestone-planning)
-  - [Moving Cards](#moving-cards)
-  - [Task Lists](#task-lists)
-  - [CI Status and Merge Conflict](#ci-status-and-merge-conflict)
-  - [Burnup Chart](#burnup-chart)
-  - [Issue Images](#issue-images)
-  - [Pull Request to non-default branch](#pull-request-to-non-default-branch)
-  - [Batch-Edit Labels in Multiple Repositories](#batch-edit-labels-in-multiple-repositories)
-  - [Review Filtering](#review-filtering)
-  - [Add and Remove Reactions](#add-and-remove-reactions)
+        - [Multiple Repositories](#multiple-repositories)
+        - [Linked Issues and Pull Requests](#linked-issues-and-pull-requests)
+        - [Real-Time Collaboration](#real-time-collaboration)
+        - [Filtering](#filtering)
+        - [Milestone Planning](#milestone-planning)
+        - [Moving Cards](#moving-cards)
+        - [Task Lists](#task-lists)
+        - [CI Status and Merge Conflict](#ci-status-and-merge-conflict)
+        - [Burnup Chart](#burnup-chart)
+        - [Issue Images](#issue-images)
+        - [Pull Request to non-default branch](#pull-request-to-non-default-branch)
+        - [Batch-Edit Labels in Multiple Repositories](#batch-edit-labels-in-multiple-repositories)
+        - [Review Filtering](#review-filtering)
+        - [Add and Remove Reactions](#add-and-remove-reactions)
 - [Examples](#examples)
 - [Development](#development)
-  - [How Does it Work?](#how-does-it-work)
+        - [How Does it Work?](#how-does-it-work)
+        - [Hosting your own Forked Version](#hosting-your-own-forked-version)
+                    - [To make edits and push them up on GitHub](#to-make-edits-and-push-them-up-on-github)
+                    - [To update your fork with the upstream (this repo)](#to-update-your-fork-with-the-upstream-this-repo)
 - [TODO List](#todo-list)
 
 # Features
