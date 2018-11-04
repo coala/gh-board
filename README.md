@@ -1,7 +1,8 @@
 # Serverless Kanban Board for GitHub Issues
-[![issues][gh-board-image]][gh-board-url]
+[![issues][issues-image]][issues-url]
 [![dependency status][dependency-image]][dependency-url]
 [![dev dependency status][dev-dependency-image]][dev-dependency-url]
+[![travis][travis-image]][travis-url]
 
 Why waste time and money paying for a Ticket Tracker when you already work in GitHub? Now, you don't have to.
 
@@ -207,11 +208,11 @@ Just specify a GitHub repository in the URL and off you go!
 - [ ] add GitHub search
 
 
-[gh-board-image]: https://img.shields.io/github/issues/philschatz/gh-board.svg?label=Issues%20%28gh-board%29
-[gh-board-url]: http://philschatz.com/gh-board/
-[travis-image]: https://img.shields.io/travis/philschatz/gh-board.svg
-[travis-url]: https://travis-ci.org/philschatz/gh-board
-[dependency-image]: https://img.shields.io/david/philschatz/gh-board.svg
-[dependency-url]: https://david-dm.org/philschatz/gh-board
-[dev-dependency-image]: https://img.shields.io/david/dev/philschatz/gh-board.svg
-[dev-dependency-url]: https://david-dm.org/philschatz/gh-board?type=dev
+[issues-image]: https://img.shields.io/github/issues/coala/gh-board.svg?label=Issues%20%28gh-board%29
+[issues-url]: https://github.com/coala/gh-board/issues
+[travis-image]: https://img.shields.io/travis/coala/gh-board.svg
+[travis-url]: https://travis-ci.org/coala/gh-board
+[dependency-image]: https://img.shields.io/david/coala/gh-board.svg
+[dependency-url]: https://david-dm.org/coala/gh-board
+[dev-dependency-image]: https://img.shields.io/david/dev/coala/gh-board.svg
+[dev-dependency-url]: https://david-dm.org/coala/gh-board?type=dev
