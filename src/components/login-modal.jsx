@@ -42,7 +42,7 @@ class Login extends Component {
       let tld = hostname.split('.').slice(-2).join('.');
       if (tld == 'github.io') return null;
       if (tld == 'netlify.com') return null;
-      if (tld == 'localhost') return null;
+      if (tld == 'localhost' || hostname.match(/^127|^0/)) return null;
       return 'https://' + hostname + '/api/v3';
 
     })();
