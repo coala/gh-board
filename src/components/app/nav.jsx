@@ -63,7 +63,9 @@ class AppNav extends Component {
       // }
       this.setState({info});
     }).catch(() => {
-      this.setState({info: null});
+      alert('Github token is invalid.');
+      this.onSignOut();
+      this.setState({info: null, showModal: true});
     });
   };
 
