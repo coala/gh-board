@@ -122,8 +122,6 @@ class Board extends Component {
       return (
         <span>
           Problem loading. Is it a valid repo? And have you exceeded your number of requests? Usually happens when not logged in because GitHub limits anonymous use of their API.
-          {err.message}
-          {JSON.stringify(err)}
         </span>
       );
     }
